@@ -1,3 +1,5 @@
+//Eunice & Ruoyun, Othello Player!!!!
+
 #include "player.hpp"
 
 /*
