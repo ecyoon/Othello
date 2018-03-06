@@ -51,8 +51,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     vector<Move> valid = board.getValidMoves(BLACK);
     if(valid.size() == 0)
         return nullptr;
-
-    return nullptr;
+    return &valid[0];
 
 
 
