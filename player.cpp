@@ -16,6 +16,8 @@ Player::Player(Side side) {
      * precalculating things, etc.) However, remember that you will only have
      * 30 seconds.
      */
+
+    p_side = side;
     board = Board();
 }
 
@@ -49,11 +51,11 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
 
-    //Update board with opponent move.
-    board.doMove(opponentsMove, WHITE);
+    //Update board with opponent move. 
+    board.doMove(opponentsMove, (p_side == BLACK) ? WHITE : BLACK);
 
     //Proceed only if there are moves left.
-    vector<Move*> valid = board.getValidMoves(BLACK);
+    vector<Move*> valid = board.getValidMoves((p_side == BLACK) ? BLACK : WHITE);
     if(valid.size() == 0)
         return nullptr;
 
@@ -68,7 +70,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     for(uint i = 0; i < valid.size(); i++)
     {
         Board *new_board = board.copy();
-        new_board->doMove(valid[i], BLACK);
+        new_board->doMove(valid[i], (p_side == BLACK) ? BLACK : WHITE);
 
         int temp = score(new_board, 4);
 
@@ -83,19 +85,19 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     Move *pick = valid[max_index];
     deleteVector(valid, max_index);
 
-    board.doMove(pick, BLACK);
+    board.doMove(pick, (p_side == BLACK) ? BLACK : WHITE);
     return pick;
 }
 
 int Player::score(Board *board, int c)
 {
     int min = -9999999;
-    Side s = WHITE;
+    Side s = (p_side == BLACK) ? WHITE : BLACK;
     int sign = -1;
 
     if(c%2 == 0)
     {
-        s = BLACK;
+        s = (p_side == BLACK) ? BLACK : WHITE;
         min = -999999;
         sign = 1;
     }

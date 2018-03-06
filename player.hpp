@@ -9,10 +9,11 @@ using namespace std;
 class Player {
 
 public:
-
     Player(Side side);
     ~Player();
+
     Board board;
+    Side p_side;
 
     void deleteVector(vector<Move*> m, uint j);
 
