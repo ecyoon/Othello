@@ -48,13 +48,31 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     board.doMove(opponentsMove, WHITE);
 
     //Proceed only if there are moves left.
-    vector<Move> valid = board.getValidMoves(BLACK);
+    vector<Move*> valid = board.getValidMoves(BLACK);
     if(valid.size() == 0)
         return nullptr;
-    return &valid[0];
 
+    //debugging print statement: prints vector valid
+    // for(uint i = 0; i < valid.size(); i++)
+    // {
+    //     std::cerr << "Move: " << valid[i]->x << ", " << valid[i]->y << std::endl;
+    // }
 
+    Move *pick = valid[0];
+    deleteVector(valid, 0);
 
+    board.doMove(pick, BLACK);
+    return pick;
+}
+
+//Prevents memory leaks.
+void Player::deleteVector(vector<Move*> m, uint j)
+{
+    for(uint i = 0; i < m.size(); i++)
+    {
+        if(i != j)
+            delete m[i];
+    }
 }
 
 

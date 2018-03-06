@@ -30,7 +30,7 @@ public:
     int count(Side side);
     int countBlack();
     int countWhite();
-    vector<Move> getValidMoves(Side side);
+    vector<Move*> getValidMoves(Side side);
     void setBoard(char data[]);
 };
 

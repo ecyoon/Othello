@@ -13,6 +13,8 @@ public:
     ~Player();
     Board board;
 
+    void deleteVector(vector<Move*> m, uint j);
+
     Move *doMove(Move *opponentsMove, int msLeft);
 
     // Flag to tell if the player is running within the test_minimax context
