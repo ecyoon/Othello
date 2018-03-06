@@ -62,10 +62,16 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
     for(uint i = 0; i < valid.size(); i++)
     {
-        if(score(valid[i]) > max)
+        Board *new_board = board.copy();
+        new_board->doMove(valid[i], BLACK);
+        int temp = score(new_board);
+
+        if(temp > max)
         {
-            max = score(valid[i]);
+            max = temp;
             max_index = i;
+
+            delete new_board;
         }
     }
 
@@ -76,9 +82,9 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     return pick;
 }
 
-int Player::score(Move *m)
+int Player::score(Board *board)
 {
-    return 1;
+    return board->countBlack() - board->countWhite();
 }
 
 //Prevents memory leaks.

@@ -16,7 +16,7 @@ public:
     void deleteVector(vector<Move*> m, uint j);
 
     Move *doMove(Move *opponentsMove, int msLeft);
-    int score(Move *m);
+    int score(Board *board);
 
     // Flag to tell if the player is running within the test_minimax context
     bool testingMinimax;
