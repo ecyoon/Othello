@@ -68,6 +68,21 @@ bool Board::hasMoves(Side side) {
 }
 
 /*
+ * Returns a vector consisting of all valid moves (vector size 0 if none).
+ */
+ vector<Move> Board::getValidMoves(Side side) {
+    vector<Move> valid;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Move move(i, j);
+            if (checkMove(&move, side)) 
+                valid.push_back(move);
+        }
+    }
+    return valid;
+}
+
+/*
  * Returns true if a move is legal for the given side; false otherwise.
  */
 bool Board::checkMove(Move *m, Side side) {

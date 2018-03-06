@@ -45,15 +45,19 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      */
 
     //Update board with opponent move.
-    board.doMove(opponentsMove, white);
+    board.doMove(opponentsMove, WHITE);
 
     //Proceed only if there are moves left.
-    if(!board.hasMoves())
+    vector<Move> valid = board.getValidMoves(BLACK);
+    if(valid.size() == 0)
         return nullptr;
 
-    
+    return nullptr;
+
+
 
 }
+
 
 
 
