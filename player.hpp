@@ -13,7 +13,7 @@ public:
     ~Player();
 
     Board board;
-    Side p_side;
+    Side p_side = WHITE;
 
     void deleteVector(vector<Move*> m, uint j);
 

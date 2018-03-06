@@ -27,11 +27,6 @@ Player::Player(Side side) {
 Player::~Player() {
 }
 
-void Player::set(char data[])
-{
-    board.setBoard(data);
-}
-
 /*
  * Compute the next move given the opponent's last move. Your AI is
  * expected to keep track of the board on its own. If this is the first move,
@@ -60,10 +55,12 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         return nullptr;
 
     //debugging print statement: prints vector valid
+    // std::cerr << ((p_side == BLACK) ? "black" : "white") << std::endl;
     // for(uint i = 0; i < valid.size(); i++)
     // {
     //     std::cerr << "Move: " << valid[i]->x << ", " << valid[i]->y << std::endl;
     // }
+
     uint max_index = 0;
     int max = -999999999;
 
@@ -72,7 +69,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         Board *new_board = board.copy();
         new_board->doMove(valid[i], (p_side == BLACK) ? BLACK : WHITE);
 
-        int temp = score(new_board, 4);
+        int temp = score(new_board, 2);
 
         if(temp > max)
         {
@@ -110,7 +107,7 @@ int Player::score(Board *board, int c)
     vector<Move*> valid = board->getValidMoves(s);
     if(valid.size() == 0)
     {
-        return sign*(board->countBlack() - board->countWhite()) + board ->addScore(s);
+        return sign*(board->countBlack() - board->countWhite()) + board->addScore(s);
     }
 
 
