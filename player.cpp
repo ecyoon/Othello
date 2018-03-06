@@ -1,8 +1,6 @@
 //Eunice & Ruoyun, Othello Player!!!!
 
 #include "player.hpp"
-
-//hello
 	
 /*
  * Constructor for the player; initialize everything here. The side your AI is
