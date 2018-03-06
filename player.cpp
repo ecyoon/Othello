@@ -25,6 +25,11 @@ Player::Player(Side side) {
 Player::~Player() {
 }
 
+void Player::set(char data[])
+{
+    board.setBoard(data);
+}
+
 /*
  * Compute the next move given the opponent's last move. Your AI is
  * expected to keep track of the board on its own. If this is the first move,
@@ -64,15 +69,15 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     {
         Board *new_board = board.copy();
         new_board->doMove(valid[i], BLACK);
-        int temp = score(new_board);
+
+        int temp = score(new_board, 4);
 
         if(temp > max)
         {
             max = temp;
             max_index = i;
-
-            delete new_board;
         }
+        delete new_board;
     }
 
     Move *pick = valid[max_index];
@@ -82,10 +87,46 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     return pick;
 }
 
-int Player::score(Board *board)
+int Player::score(Board *board, int c)
 {
-    return board->countBlack() - board->countWhite();
+    int min = -9999999;
+    Side s = WHITE;
+    int sign = -1;
+
+    if(c%2 == 0)
+    {
+        s = BLACK;
+        min = -999999;
+        sign = 1;
+    }
+
+    if(c == 0)
+    {
+        return sign*(board->countBlack() - board->countWhite()) + board->addScore(s);
+    }
+
+    vector<Move*> valid = board->getValidMoves(s);
+    if(valid.size() == 0)
+    {
+        return sign*(board->countBlack() - board->countWhite()) + board ->addScore(s);
+    }
+
+
+    for(uint i = 0; i < valid.size(); i++)
+    {
+        Board *t = board->copy();
+        t->doMove(valid[i], s);
+
+        int temp = score(t, c - 1);
+        if((i%2 == 0 && temp < min) || (i%2 == 1 && temp > min))
+        {
+            min = temp + t->addScore(s);
+        }
+        delete t;
+    }
+    return min;
 }
+
 
 //Prevents memory leaks.
 void Player::deleteVector(vector<Move*> m, uint j)

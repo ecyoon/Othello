@@ -31,6 +31,7 @@ public:
     int countBlack();
     int countWhite();
     vector<Move*> getValidMoves(Side side);
+    int addScore(Side s);
     void setBoard(char data[]);
 };
 

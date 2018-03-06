@@ -9,6 +9,7 @@ using namespace std;
 class Player {
 
 public:
+
     Player(Side side);
     ~Player();
     Board board;
@@ -16,7 +17,8 @@ public:
     void deleteVector(vector<Move*> m, uint j);
 
     Move *doMove(Move *opponentsMove, int msLeft);
-    int score(Board *board);
+    int score(Board *board, int c);
+    void set(char data[]);
 
     // Flag to tell if the player is running within the test_minimax context
     bool testingMinimax;

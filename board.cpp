@@ -56,6 +56,59 @@ bool Board::isDone() {
     return !(hasMoves(BLACK) || hasMoves(WHITE));
 }
 
+int Board::addScore(Side s)
+{
+    int add = 0;
+    if(get(s, 0, 0))
+        add +=3;
+    if(get(s, 7, 7))
+        add +=3;
+    if(get(s, 0, 7))
+        add +=3;
+    if(get(s, 7, 0))
+        add +=3;
+
+    if(get(s, 0, 1))
+        add -=1;
+    if(get(s, 0, 6))
+        add -=1;
+    if(get(s, 1, 0))
+        add -=1;
+    if(get(s, 1, 6))
+        add -=1;
+    if(get(s, 6, 0))
+        add -=1;
+    if(get(s, 6, 7))
+        add -=1;
+    if(get(s, 7, 1))
+        add -=1;
+    if(get(s, 7, 6))
+        add -=1;
+
+    if(get(s, 1, 1))
+        add -=3;
+    if(get(s, 6, 6))
+        add -=3;
+    if(get(s, 1, 6))
+        add -=3;
+    if(get(s, 6, 1))
+        add -=3;
+
+    for(int i = 2; i < 7; i++)
+    {
+        if(get(s, 0, i))
+            add +=1;
+        if(get(s, i, 0))
+            add +=1;
+        if(get(s, 7, i))
+            add +=1;
+        if(get(s, 0, 7))
+            add +=1;
+    }
+
+    return add;
+}
+
 /*
  * Returns true if there are legal moves for the given side.
  */
