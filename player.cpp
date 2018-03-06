@@ -57,12 +57,28 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     // {
     //     std::cerr << "Move: " << valid[i]->x << ", " << valid[i]->y << std::endl;
     // }
+    uint max_index = 0;
+    int max = -999999999;
 
-    Move *pick = valid[0];
-    deleteVector(valid, 0);
+    for(uint i = 0; i < valid.size(); i++)
+    {
+        if(score(valid[i]) > max)
+        {
+            max = score(valid[i]);
+            max_index = i;
+        }
+    }
+
+    Move *pick = valid[max_index];
+    deleteVector(valid, max_index);
 
     board.doMove(pick, BLACK);
     return pick;
+}
+
+int Player::score(Move *m)
+{
+    return 1;
 }
 
 //Prevents memory leaks.
