@@ -69,7 +69,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         Board *new_board = board.copy();
         new_board->doMove(valid[i], (p_side == BLACK) ? BLACK : WHITE);
 
-        int temp = score(new_board, 2);
+        int temp = score(new_board, 4);
 
         if(temp > max)
         {
