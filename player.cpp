@@ -69,7 +69,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         Board *new_board = board.copy();
         new_board->doMove(valid[i], (p_side == BLACK) ? BLACK : WHITE);
 
-        int temp = score(new_board, 2);
+        int temp = score(new_board, 3);
 
         if(temp > max)
         {
@@ -95,19 +95,19 @@ int Player::score(Board *board, int c)
     if(c%2 == 0)
     {
         s = (p_side == BLACK) ? BLACK : WHITE;
-        min = -999999;
+        min = 9999999;
         sign = 1;
     }
 
     if(c == 0)
     {
-        return sign*(board->countBlack() - board->countWhite()) + board->addScore(s);
+        return sign*(board->countBlack() - board->countWhite()) + board->addScore(s) ;
     }
 
     vector<Move*> valid = board->getValidMoves(s);
     if(valid.size() == 0)
     {
-        return sign*(board->countBlack() - board->countWhite()) + board->addScore(s);
+        return sign*(board->countBlack() - board->countWhite()) + board->addScore(s) ;
     }
 
 
@@ -117,7 +117,7 @@ int Player::score(Board *board, int c)
         t->doMove(valid[i], s);
 
         int temp = score(t, c - 1);
-        if((i%2 == 0 && temp < min) || (i%2 == 1 && temp > min))
+        if((c%2 == 0 && temp < min) || (c%2 == 1 && temp > min))
         {
             min = temp + t->addScore(s);
         }
